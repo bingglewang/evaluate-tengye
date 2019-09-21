@@ -1,0 +1,78 @@
+#配置druid数据库连接池
+spring:
+  datasource:
+    # 如果存在多个数据源，监控的时候可以通过名字来区分
+    name: mysql
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 扩展插件
+    # 监控统计用的filter：stat  日志用的filter：log4j  防御sql注入的filter：wall
+    filters: stat
+    # 最大连接池数量
+    maxActive: 20
+    # 初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnecction的时候
+    initialSize: 1
+    # 获取连接时最大等待事件，单位毫秒
+    maxWait: 60000
+    # 最小连接池数量
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    # 连接保持空闲而不被驱逐的最长时间
+    minEvictableIdleTimeMillis: 300000
+    # 用来检测连接是否有效的sql，要求是一个查询语句
+    # 如果validationQuery为null，testOnBorrow，testOnReturn，testWhileIdle都不会起作用
+    validationQuery: select count(1) from 'table'
+    # 申请连接时检测，如果空闲时间大于timeBetweenEvictionRunsMills，执行validationQuery检测连接是否有效
+    testWhileIdle: true
+    # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+    testOnBorrow: false
+    # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+    testOnReturn: false
+    # 是否缓存preparedStatement，即PSCache
+    poolPreparedStatements: false
+    # 要启用PsCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true
+    maxOpenPreparedStatements: -1
+     # 多环境配置
+  profiles:
+    active: dev
+
+#pagehelper分页插件配置
+pagehelper:
+  # 数据库的方言
+  helperDialect: mysql
+  # 启用合理化，如果pageNum < 1 会查询第一页，如果pageNum > pages会查询最后一页
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+# mybatis 扫面包配置
+mybatis:
+  # mapper.xml包地址
+  mapper-locations: classpath:mapper/mysql/*.xml
+  # pojo生成包地址
+  type-aliases-package: com.spring.mpvue.springbootmpvue.mabatis.po
+
+# 日志应用配置
+resources:
+  # log文件写入地址
+  logdir: logs/
+  # 应用名称
+  appname: spring-boot-mpvue
+  # 日志打印的基础扫描包
+  basepackage: com.spring.mpvue.springbootmpvue
+  # 静态资源路径
+  static-locations: classpath:/
+#微信小程序配置
+wx:
+  appId: wx5a36af365642441e
+  appSecret: e0f6bccb054310bcba6ea9c4a85e1a3d
+  grantType: authorization_code
+  requestUrl: https://api.weixin.qq.com/sns/jscode2session
+fj:
+  username: tyzc
+  password: 123456
+  appKey: 51CB914DAC528CD2B51C9D3779D87BDF08DB0D96FB1F55AED9730C5C008BAB0D
+  requestUrl: http://open.fangjia.com/accessToken
+  xqRequestUrl: http://open.fangjia.com/property/search
+  evaluateUrl: http://open.fangjia.com/property/evaluate
+
+

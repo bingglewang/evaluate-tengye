@@ -1,0 +1,16 @@
+spring:
+ datasource:
+ # 连接数据库的url
+    url: jdbc:mysql://149.129.76.17:3306/dbspringboot?useUnicode=true&characterEncoding=utf8&useSSL=true
+    # 连接数据库的用户名
+    username: root
+    # 连接数据库的密码
+    password: 12345a
+# 服务器端口号
+server:
+    port: 8082
+    servlet:
+        context-path: /evaluate
+# swagger配置
+swagger:
+        isEnable: false
