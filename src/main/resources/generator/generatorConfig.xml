@@ -37,6 +37,6 @@
         </javaClientGenerator>
 
        <!-- 要生成的表  tableName是数据库中的表名或视图名  schema是数据库名称-->
-       <table tableName="user_address" schema="${db}"/>
+       <table tableName="%" schema="${db}"/>
     </context>
 </generatorConfiguration>

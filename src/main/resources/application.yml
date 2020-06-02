@@ -34,7 +34,7 @@ spring:
     maxOpenPreparedStatements: -1
      # 多环境配置
   profiles:
-    active: dev
+    active: prod
 
 #pagehelper分页插件配置
 pagehelper:
@@ -74,5 +74,3 @@ fj:
   requestUrl: http://open.fangjia.com/accessToken
   xqRequestUrl: http://open.fangjia.com/property/search
   evaluateUrl: http://open.fangjia.com/property/evaluate
-
-

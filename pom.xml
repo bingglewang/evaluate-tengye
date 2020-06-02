@@ -25,12 +25,22 @@
     </properties>
 
     <dependencies>
+        <!--hutool-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>4.4.3</version>
+        </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>
         </dependency>
-
+        <!-- spring security 安全认证 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!--Spring web mvc-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -143,6 +153,20 @@
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
             </plugin>
+            <!-- mybatis generator 自动生成代码插件 -->
+           <!-- <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    &lt;!&ndash; 扫描resources/generator目录下的generatorConfig.xml配置 &ndash;&gt;
+                    <configurationFile>
+                        ${basedir}/src/main/resources/generator/generatorConfig.xml
+                    </configurationFile>
+                    <overwrite>true</overwrite>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>-->
         </plugins>
     </build>
 
