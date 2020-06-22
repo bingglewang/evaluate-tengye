@@ -7,7 +7,7 @@ public class CellSearchIn {
     private String city;
     @NotEmpty(message = "查询关键字不能为空")
     private String keyword;
-    @NotEmpty(message = "区域不能为空")
+    //@NotEmpty(message = "区域不能为空")
     private String district;
     private String block;
     private Double lat;
