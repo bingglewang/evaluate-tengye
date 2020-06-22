@@ -65,6 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").permitAll()
                 .antMatchers("/webService/**").permitAll()
                 .antMatchers("/api/wx/**").permitAll()
+                .antMatchers("/house/**").permitAll()
+                .and()
+                // 认证失败处理类
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+
                 .and()
                     .formLogin()
                     .loginProcessingUrl("/login")
@@ -72,14 +77,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler(MyAuthenticationFailureHandler)
                     .and().logout()
                     .logoutSuccessHandler(MyLogoutSuccessHandler)
-                    .and()
-                        // 认证失败处理类
-                        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                        .authorizeRequests()
-                        .antMatchers("/house/**").authenticated()
-                        .anyRequest()
-                        .authenticated()
-                        .and().csrf().disable();
-        http.addFilter(new HeaderWriterFilter(headerWriters));
+                    .and().sessionManagement()
+                    .and().csrf().disable();
+
+       // http.addFilter(new HeaderWriterFilter(headerWriters));
     }
 }

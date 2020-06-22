@@ -34,7 +34,7 @@ spring:
     maxOpenPreparedStatements: -1
      # 多环境配置
   profiles:
-    active: prod
+    active: dev
 
 #pagehelper分页插件配置
 pagehelper:

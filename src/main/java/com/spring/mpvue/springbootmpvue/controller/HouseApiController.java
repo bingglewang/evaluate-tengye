@@ -19,10 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -66,11 +63,11 @@ public class HouseApiController {
      * 小区搜索
      * @return
      */
-    @RequestMapping("/cellSearch")
-    @ResponseBody
+    @PostMapping("/cellSearch")
     public Map<String, Object> cellSearch(
             @RequestBody @Valid final CellSearchIn cellSearchIn
     ){
+        System.out.println("小区参数："+JSONObject.toJSONString(cellSearchIn));
         long start = System.currentTimeMillis();
         // 房价token
         Map<String,Object> tokenMap = JavaWebToken.parserJavaWebToken(cellSearchIn.getToken());
@@ -84,6 +81,7 @@ public class HouseApiController {
         String token = (tokenMap.get("token")).toString();
         token = token.substring(1,token.length()-1);
         String loginId = (tokenMap.get("loginId")).toString();
+        String name = (tokenMap.get("name")).toString();
         if(StringUtils.isBlank(token) || StringUtils.isBlank(loginId) ){
             Map<String, Object> resultTokenEmpty = new HashMap<>();
             resultTokenEmpty.put("code",401);
@@ -94,7 +92,7 @@ public class HouseApiController {
 
         Integer userId = Integer.parseInt(loginId);
         //判断用户是否禁用和次数
-        boolean isPower = isUserApiPower(userId,2);
+        boolean isPower = isUserApiPower(userId,1);
         if(!isPower){
             Map<String, Object> resultPower= new HashMap<>();
             resultPower.put("code",400);
@@ -148,6 +146,7 @@ public class HouseApiController {
         sysLogWithBLOBs.setParams(JSONObject.toJSONString(cellSearchIn));
         sysLogWithBLOBs.setCreateTime(new Date());
         sysLogWithBLOBs.setUpdateTime(new Date());
+        sysLogWithBLOBs.setCreateBy(name);
         sysLogMapper.insert(sysLogWithBLOBs);
 
         return result;
@@ -158,11 +157,11 @@ public class HouseApiController {
      * 房价评估接口
      * @return
      */
-    @RequestMapping("/evaluate")
-    @ResponseBody
+    @PostMapping("/evaluate")
     public Map<String,Object> evaluate(
             @RequestBody @Valid final EvaluateVo evaluateVo
     ){
+        System.out.println("评估参数："+JSONObject.toJSONString(evaluateVo));
         long start = System.currentTimeMillis();
         // 房价token
         Map<String,Object> tokenMap = JavaWebToken.parserJavaWebToken(evaluateVo.getToken());
@@ -176,6 +175,7 @@ public class HouseApiController {
         String token = (tokenMap.get("token")).toString();
         token = token.substring(1,token.length()-1);
         String loginId = (tokenMap.get("loginId")).toString();
+        String name = (tokenMap.get("name")).toString();
         if(StringUtils.isBlank(token) || StringUtils.isBlank(loginId)){
             Map<String, Object> resultTokenEmpty = new HashMap<>();
             resultTokenEmpty.put("code",401);
@@ -258,6 +258,7 @@ public class HouseApiController {
         sysLogWithBLOBs.setParams(JSONObject.toJSONString(evaluateVo));
         sysLogWithBLOBs.setCreateTime(new Date());
         sysLogWithBLOBs.setUpdateTime(new Date());
+        sysLogWithBLOBs.setCreateBy(name);
         sysLogMapper.insert(sysLogWithBLOBs);
 
         return result;
