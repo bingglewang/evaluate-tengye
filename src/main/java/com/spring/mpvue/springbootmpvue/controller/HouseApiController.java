@@ -101,19 +101,22 @@ public class HouseApiController {
             return resultPower;
         }
 
-        String url = this.xqRequestUrl
-                    + "?city=" + cellSearchIn.getCity()
-                    + "&keyword=" + cellSearchIn.getKeyword()
-                    +"&district="+cellSearchIn.getDistrict()
-                    +"&block="+cellSearchIn.getBlock()
-                    +"&lat="+cellSearchIn.getLat()
-                    +"&lng="+cellSearchIn.getLng()
-                    +"&from="+cellSearchIn.getFrom()
-                    +"&radius="+cellSearchIn.getRadius()
-                    +"&max="+cellSearchIn.getMax()
-                    +"&token=" + token;
+        StringBuilder url = new StringBuilder();
+        url.append(this.xqRequestUrl);
+        url.append("?city=" + cellSearchIn.getCity());
+        url.append("&keyword=" + cellSearchIn.getKeyword());
+        if(StringUtils.isNotBlank(cellSearchIn.getDistrict())){
+            url.append("&district="+cellSearchIn.getDistrict());
+        }
+        url.append("&block="+cellSearchIn.getBlock());
+        url.append("&lat="+cellSearchIn.getLat());
+        url.append("&lng="+cellSearchIn.getLng());
+        url.append("&from="+cellSearchIn.getFrom());
+        url.append("&radius="+cellSearchIn.getRadius());
+        url.append("&max="+cellSearchIn.getMax());
+        url.append("&token=" + token);
         // 发送请求
-        String data = HttpUtil.get(url);
+        String data = HttpUtil.get(url.toString());
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> result = new HashMap<>();
         JsonNode json = null;
