@@ -16,7 +16,7 @@ import java.util.Date;
 public class EvaluateVo {
     @NotEmpty(message = "城市不能为空")
     private String city;
-    @NotEmpty(message = "区域不能为空")
+    //@NotEmpty(message = "区域不能为空")
     private String district;
     @NotEmpty(message = "小区不能为空")
     private String name;

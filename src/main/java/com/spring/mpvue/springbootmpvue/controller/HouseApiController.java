@@ -202,7 +202,6 @@ public class HouseApiController {
 
         String url = this.evaluateUrl +
                 "?city=" + evaluateVo.getCity() +
-                "&district=" + evaluateVo.getDistrict() +
                 "&name=" + evaluateVo.getName() +
                 "&buildingNumber=" + evaluateVo.getBuildingNumber() +
                 "&unitNumber=" + evaluateVo.getUnitNumber() +
@@ -227,6 +226,9 @@ public class HouseApiController {
                 "&facilities="+evaluateVo.getFacilities()+
                 "&insidePosition="+evaluateVo.getInsidePosition()+
                 "&token=" + token;
+        if(StringUtils.isNotBlank(evaluateVo.getDistrict())){
+            url +=  "&district=" + evaluateVo.getDistrict();
+        }
         // 发送请求
         String data = HttpUtil.get(url);
         ObjectMapper mapper = new ObjectMapper();
